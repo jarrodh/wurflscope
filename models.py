@@ -13,14 +13,15 @@ class Device(db.Model):
     """Describes a mobile devices capabilities"""
     name = db.StringProperty()
     user_agent = db.StringProperty()
+    fall_back = db.StringProperty()
 
 class ProductInfo(db.Model):
     """docstring for ProductInfo"""
     device = db.ReferenceProperty(Device)
-    mobile_browser
-    nokia_feature_pack
-    device_os
-    nokia_series
+    mobile_browser = db.StringProperty()
+    nokia_feature_pack = db.StringProperty()
+    device_os = db.StringProperty()
+    """nokia_series
     has_qwerty_keyboard
     pointing_method
     mobile_browser_version
@@ -39,5 +40,5 @@ class ProductInfo(db.Model):
     marketing_name
     can_assign_phone_number
     release_date
-    unique
+    unique"""
     
