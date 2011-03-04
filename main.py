@@ -14,28 +14,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from google.appengine.ext import webapp
-from google.appengine.ext.webapp import util
 from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
+from google.appengine.ext.webapp.util import run_wsgi_app
 
-from device import Device
+import datetime
+import os
+
+
+#from device import Device
+
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
 #        device = Device(name = "TestPhone", user_agent = "Some_UserAgent")
 #        device.put()
         
-        devices = db.GqlQuery("SELECT * FROM Device")
-        dev = devices.fetch(1)
+ #       devices = db.GqlQuery("SELECT * FROM Device")
+ #       dev = devices.fetch(1)
         
-        self.response.out.write('Device Name is: %s' % dev[0].name)
+#        self.response.out.write('Device Name is: %s' % dev[0].name)
+
+        template_values = { 
+            "title": "WurflScope",
+            "device": "HTC Hero"
+            }
+        path = os.path.join(os.path.dirname(__file__), 'views/main.html')
+        page = template.render(path, template_values)
+        self.response.out.write(page)
 
 
 def main():
-    application = webapp.WSGIApplication([('/', MainHandler)],
+    application = webapp.WSGIApplication([("/", MainHandler)],
                                          debug=True)
-    util.run_wsgi_app(application)
+    run_wsgi_app(application)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
