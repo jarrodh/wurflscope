@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"> 
+    <head> 
+        <title>WURFL Scope</title>
+    </head> 
+    <body>
+        <div id="container">
+            <header>
+                <div id="logo">
+                    <div align="left" style="background:url(/images/logo.png) no-repeat;height:106px;width:135px" title="wurflscope" id="wslogo" onload="window.lol&amp;&amp;lol()">
+                        <!-- This is not a great solution -->
+                        <div id="logoName" style="position:relative;top:70px;left:150px">
+                            Wurflscope
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="main">
+                <form action="/" method="post" accept-charset="utf-8">
+                    <input type="text" name="searchBox" value="" id="searchBox"/>
+                    
+                    <p><input type="submit" value="Search"/></p>
+                </form>
+            
+                {% if device %}
+                    <h1 id="deviceTitle">Details for the {{ device }}:</h1>
+                {% endif %}
+            </div>
+
+            <footer>
+            </footer>
+        </div> <!--! end of #container -->
+    </body> 
+</html> 

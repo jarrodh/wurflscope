@@ -8,5 +8,8 @@ handlers:
   script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
   login: admin
   
+- url: /images
+  static_dir: static/images
+  
 - url: .*
   script: main.py

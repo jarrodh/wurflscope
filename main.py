@@ -36,11 +36,16 @@ class MainHandler(webapp.RequestHandler):
         
 #        self.response.out.write('Device Name is: %s' % dev[0].name)
 
+        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')
+        page = template.render(path, {}) #, template_values)
+        self.response.out.write(page)
+        
+    def post(self):
         template_values = { 
-            "title": "WurflScope",
             "device": "HTC Hero"
             }
-        path = os.path.join(os.path.dirname(__file__), 'views/main.html')
+        
+        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')
         page = template.render(path, template_values)
         self.response.out.write(page)
 
