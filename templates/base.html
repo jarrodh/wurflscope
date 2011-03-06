@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"> 
+    <head> 
+        <title>WURFL Scope</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js" type="text/javascript"></script>
+
+        <script id="deviceTemplate" type="text/x-jquery-tmpl">
+            <li>
+                <b>${Name}</b> Properties:
+                <ul>
+                    <li>User Agent: ${UserAgent}</li>
+                    <li>Operating System: ${OS}</li>
+                </ul>
+            </li>
+        </script>
+
+            
+    </head> 
+    <body>
+        <div id="container">
+            <header>
+                <div id="logo">
+                    <div align="left" style="background:url(/images/logo.png)no-repeat;height:106px;width:135px" title="wurflscope" id="wslogo"> 
+                        <!-- This is not a great solution -->
+                        <div id="logoName" style="position:relative;top:70px;left:150px">
+                            Wurflscope
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="main">
+                {% block main_content %}
+                {% endblock %}
+
+                {% if device %}
+                    <h1 id="deviceTitle">Details for the {{ device.name }}:</h1>
+                    <ul id="results"></ul>
+                {% endif %}
+            </div>
+
+            <footer>
+            </footer>
+        </div> <!--! end of #container -->
+        <script type="text/javascript" language="javascript" charset="utf-8">
+            var devices = [
+                    { Name: "Nokia", UserAgent: "Phone/Nokia40", OS: "Symbian" }
+                ];
+
+                $("#deviceTemplate").template("deviceTemplate");
+                $.tmpl("deviceTemplate", devices).appendTo("#results");
+                //$("#deviceTemplate").tmpl(devices).appendTo("#results");
+        </script>
+    </body> 
+</html> 

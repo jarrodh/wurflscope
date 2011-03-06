@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<h1>{{ productInfo.device.name }}</h1>
+<ul>
+    <li>User Agent: {{ productInfo.device.user_agent }}</li>
+    <li>Mobile Browser: {{ productInfo.mobile_browser }}</li>
+    <li>Operating System: {{ productInfo.device_os }}</li>
+{% endblock %}

@@ -22,7 +22,9 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-from models import Device
+from django.utils import simplejson
+
+from models import Device, ProductInfo
 
 
 class MainHandler(webapp.RequestHandler):
@@ -38,23 +40,29 @@ class MainHandler(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), "templates/main.html")
         page = template.render(path, {}) #, template_values)
         self.response.out.write(page)
-        
-    def post(self):
-        device = Device(name = "HTC Hero", user_agent = "Some_UserAgent")
-        device.put()
 
-        template_values = { 
-            "device": device 
-            }
-        
-        path = os.path.join(os.path.dirname(__file__), "templates/main.html")
+class DeviceHandler(webapp.RequestHandler):
+    def get(self):
+        query = self.request.get("q")
+        device = Device(name = "Nokia", user_agent = "Some_UserAgent")
+        device.put()
+        productInfo = ProductInfo(device = device, mobile_browser = "Qix40", device_os = "Symbian")
+        productInfo.put()
+
+        template_values = { "device": device, "productInfo": productInfo }
+        path = os.path.join(os.path.dirname(__file__), "templates/device.html")
         page = template.render(path, template_values)
         self.response.out.write(page)
 
 
 def main():
-    application = webapp.WSGIApplication([("/", MainHandler)],
-                                         debug=True)
+    application = webapp.WSGIApplication(
+            [
+                ("/", MainHandler),
+                ("/device", DeviceHandler)
+            ],
+            debug=True
+        )
     run_wsgi_app(application)
 
 
