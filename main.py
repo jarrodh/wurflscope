@@ -14,16 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import datetime
+import os
+
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-import datetime
-import os
-
-
-#from device import Device
+from models import Device
 
 
 class MainHandler(webapp.RequestHandler):
@@ -36,16 +35,19 @@ class MainHandler(webapp.RequestHandler):
         
 #        self.response.out.write('Device Name is: %s' % dev[0].name)
 
-        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')
+        path = os.path.join(os.path.dirname(__file__), "templates/main.html")
         page = template.render(path, {}) #, template_values)
         self.response.out.write(page)
         
     def post(self):
+        device = Device(name = "HTC Hero", user_agent = "Some_UserAgent")
+        device.put()
+
         template_values = { 
-            "device": "HTC Hero"
+            "device": device 
             }
         
-        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')
+        path = os.path.join(os.path.dirname(__file__), "templates/main.html")
         page = template.render(path, template_values)
         self.response.out.write(page)
 
